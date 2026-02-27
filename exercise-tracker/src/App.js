@@ -1,23 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import RepetitionExercise from "./components/RepetitionExercise";
+import DurationExercise from "./components/DurationExercise";
 
 function App() {
+  const [selectedExercise, setSelectedExercise] = useState(null);
+  const [selectedType, setSelectedType] = useState(null);
+
+  const exercises = [
+    { name: "Push Ups", type: "repetition" },
+    { name: "Sit Ups", type: "repetition" },
+    { name: "Planking", type: "duration" },
+    { name: "Burpees", type: "duration" },
+  ];
+
+  const handleSelect = (exercise) => {
+    setSelectedExercise(exercise.name);
+    setSelectedType(exercise.type);
+  };
+
+  const handleBackToMenu = () => {
+    setSelectedExercise(null);
+    setSelectedType(null);
+  };
+
+  let screen = null;
+
+  if (!selectedExercise) {
+    screen = (
+      <div>
+        <h1>Exercise Tracker</h1>
+        <p>Select an exercise:</p>
+        {exercises.map((ex) => (
+          <button
+            key={ex.name}
+            onClick={() => handleSelect(ex)}
+            style={{ display: "block", margin: "8px 0" }}
+          >
+            {ex.name} ({ex.type})
+          </button>
+        ))}
+      </div>
+    );
+  } else {
+    let exerciseComponent = null;
+    if (selectedType === "repetition") {
+      exerciseComponent = <RepetitionExercise name={selectedExercise} />;
+    } else if (selectedType === "duration") {
+      exerciseComponent = <DurationExercise name={selectedExercise} />;
+    }
+
+    screen = (
+      <div>
+        <button onClick={handleBackToMenu}>Back to Menu</button>
+        {exerciseComponent}
+      </div>
+    );
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {screen}
     </div>
   );
 }
