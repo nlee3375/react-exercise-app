@@ -35,12 +35,14 @@ function DurationExercise({ name }) {
   const secs = String(seconds % 60).padStart(2, "0");
 
   return (
-    <div>
+    <div class="menu-container">
       <h2>{name}</h2>
       <p>{minutes}:{secs}</p>
-      <button onClick={handleStart}>Start</button>
-      <button onClick={handleStop}>Stop</button>
-      <button onClick={handleReset}>Reset</button>
+      <div class="button-container">
+      <button onClick={handleStart} className="exercise-button">Start</button>
+      <button onClick={handleStop} className="exercise-button">Stop</button>
+      <button onClick={handleReset} className="exercise-button">Reset</button>
+      </div>
     </div>
   );
 }

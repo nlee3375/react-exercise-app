@@ -12,11 +12,13 @@ function RepetitionExercise({ name }) {
   };
 
   return (
-    <div>
+    <div class="menu-container">
       <h2>{name}</h2>
       <p>Reps: {count}</p>
-      <button onClick={handleIncrement}>Add Rep</button>
-      <button onClick={handleReset}>Reset</button>
+      <div class="button-container">
+      <button onClick={handleIncrement} className="exercise-button">Add Rep</button>
+      <button onClick={handleReset} className="exercise-button">Reset</button>
+      </div>
     </div>
   );
 }
